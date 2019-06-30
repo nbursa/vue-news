@@ -43,6 +43,7 @@ body {
         .categories {
             a {
                 margin-right: 20px;
+                text-transform: capitalize;
                 &:last-child {
                     margin: 0;
                 }
