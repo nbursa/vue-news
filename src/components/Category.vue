@@ -55,7 +55,7 @@ export default {
         fetchData () {
             let news = []
             let variable = 'category=' + `${this.$route.query.category}`+ '&pageSize=100&country=us&'
-            let key = 'apiKey=cd60a080a4304651ab21b8232ea9a0ee'
+            let key = ''
             let url = 'https://newsapi.org/v2/top-headlines?'
             let call = url + variable + key
 
