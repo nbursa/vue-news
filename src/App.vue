@@ -14,7 +14,7 @@ export default {
     name: 'app',
     data () {
         return {
-        categories: []
+            categories: []
         }
     },
     mounted () {
@@ -23,7 +23,7 @@ export default {
     methods: {
         fetchCategories() {
         let country = 'country=us&'
-        let key = ''
+        let key = 'apiKey=cd60a080a4304651ab21b8232ea9a0ee'
         let url = 'https://newsapi.org/v2/sources?'
         let call = url + country + key
 

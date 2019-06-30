@@ -6,18 +6,21 @@
         <div v-if="loading" class="loader">
             <div class="pulser"></div>
         </div>
-        <div class="news" v-for="(item, i) in news[0]" :key="i">
-            <div class="article" v-if="!loading">
-                <a class="article-link" :href="item.url" target="_blank">
-                    <img class="article-image" :src="item.urlToImage" :alt="item.title">
-                    <div class=article-text>
-                        <p class="article-text-description">{{ item.description }}</p>
-                        <span class="article-text-author">{{ item.author }}</span>
-                        <span class="article-text-date">{{ item.publishedAt }}</span>
-                    </div>
-                </a>
+        <div v-masonry column-width=".news" :gutter="gutter" transition-duration="0.3s" item-selector=".news" v-if="!loading" class="news-container">
+            <div class="news" v-for="(item, i) in news[0]" :key="i" v-masonry-tile>
+                <div class="article" v-if="item.description">
+                    <a class="article-link" :href="item.url" target="_blank">
+                        <img class="article-image" src="../assets/background-3046137_640.jpg" :data-src="item.urlToImage" :alt="item.title">
+                        <div class=article-text>
+                            <p class="article-text-description">{{ item.description }}</p>
+                            <span class="article-text-author" v-if="item.author">Author: {{ item.author }}</span>
+                            <span class="article-text-date" v-if="item.publishedAt">Published: {{ item.publishedAt.replace(/T|Z/g,' ') }}</span>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
+        <footer v-if="!loading">Data collected from <a href="https://newsapi.org">NewsAPI.org</a></footer>
     </div>
 </template>
 <script>
@@ -32,17 +35,27 @@ export default {
     data () {
         return {
             news: [],
-            loading: false
+            loading: true,
+            gutter: 0
         }
     },
-    mounted() {
+    created () {
+
+    },
+    updated () {
+        if(this.loading === false) {
+            this.loadImagesProgressively()
+        }
+    },
+    mounted () {
         this.fetchData()
+        this.gutterCalc()
     },
     methods: {
-        fetchData() {
+        fetchData () {
             let news = []
             let variable = 'category=' + `${this.$route.query.category}`+ '&pageSize=100&country=us&'
-            let key = ''
+            let key = 'apiKey=cd60a080a4304651ab21b8232ea9a0ee'
             let url = 'https://newsapi.org/v2/top-headlines?'
             let call = url + variable + key
 
@@ -58,9 +71,37 @@ export default {
                     console.error(error)
                 }
             }
-            this.loading = true
             getData()
         },
+        gutterCalc () {
+            this.gutter = window.innerWidth <= 1980 ? 10 : 24.5
+        },
+        loadImagesProgressively () {
+            let imagesToLoad = this.$el.querySelectorAll('img[data-src]')
+            let loadImages = function(image) {
+                image.setAttribute('src', image.getAttribute('data-src'))
+                image.onload = function() {
+                    image.removeAttribute('data-src')
+                }
+            }
+            if('IntersectionObserver' in window) {
+                let observer = new IntersectionObserver(function(items, observer) {
+                    items.forEach(function(item) {
+                        if(item.isIntersecting) {
+                            loadImages(item.target)
+                            observer.unobserve(item.target)
+                        }
+                    })
+                })
+                imagesToLoad.forEach(function(img) {
+                    observer.observe(img)
+                })
+            } else {
+                imagesToLoad.forEach(function(img) {
+                    loadImages(img)
+                })
+            }
+        }
     }
 }
 </script>

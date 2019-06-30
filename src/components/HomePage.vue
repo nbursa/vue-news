@@ -1,11 +1,12 @@
 <template>
   <div class="homepage">
-    <h1>News API</h1>
+    <h1>News</h1>
+    <div class="source">Data collected from <a href="https://newsapi.org">NewsAPI.org</a></div>
     <h2>Choose category:</h2>
     <div class="categories">
       <router-link v-for="item in categories" :key="item" :to="{path: '/category', query: { category: item } }">{{ item }} </router-link>
     </div>
-    <h4>Other headlines</h4>
+    <h4>Headlines</h4>
     <div class="headlines">
         <h6 v-for="item in headlines" :key="item">{{ item }}</h6>
     </div>
@@ -32,7 +33,7 @@ export default {
     methods: {
         fetchHeadlines() {
             let country = 'country=us&'
-            let key = ''
+            let key = 'apiKey=cd60a080a4304651ab21b8232ea9a0ee'
             let url = 'https://newsapi.org/v2/top-headlines?'
             let call = url + country + key
 
