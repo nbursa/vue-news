@@ -34,7 +34,6 @@ export default {
             news.map(item => {
                 this.categories.push(item)
             })
-            // console.log(news)
             let filteredCategories = []
             this.categories.forEach((element) => {
                 filteredCategories.push(element.category)
@@ -42,7 +41,7 @@ export default {
             filteredCategories = [...new Set(filteredCategories)]
             this.categories = filteredCategories
             } catch (error) {
-            console.error(error)
+                console.error(error)
             }
         }
         getData()

@@ -1,11 +1,11 @@
 <template>
   <div class="homepage">
     <h1>News API</h1>
-    <h5>Choose category:</h5>
+    <h2>Choose category:</h2>
     <div class="categories">
       <router-link v-for="item in categories" :key="item" :to="{path: '/category', query: { category: item } }">{{ item }} </router-link>
     </div>
-    <h3>Other headlines</h3>
+    <h4>Other headlines</h4>
     <div class="headlines">
         <h6 v-for="item in headlines" :key="item">{{ item }}</h6>
     </div>
@@ -40,12 +40,10 @@ export default {
                 try {
                     let response = await axios.get(call);
                     let headlines = response.data.articles
-                    // console.log(headlines)
                     headlines.forEach((article) => {
                         if (article.title)
                             this.headlines.push(article.title)
                     })
-                    // console.log(this.headlines)
                 } catch (error) {
                     console.error(error)
                 }

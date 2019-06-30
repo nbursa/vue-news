@@ -1,19 +1,20 @@
 <template>
     <div class="category">
         <router-link to="/">Back</router-link>
-        <h1>Category</h1>
-        <h2>{{ this.$route.query.category }}</h2>
+        <h3>Category</h3>
+        <h1>{{ this.$route.query.category }}</h1>
+        <div v-if="loading" class="loader">
+            <div class="pulser"></div>
+        </div>
         <div class="news" v-for="(item, i) in news[0]" :key="i">
-            <div class="article">
+            <div class="article" v-if="!loading">
                 <a class="article-link" :href="item.url" target="_blank">
                     <img class="article-image" :src="item.urlToImage" :alt="item.title">
                     <div class=article-text>
-                        <!-- <p class="article-text-content">{{ item.content }}</p> -->
                         <p class="article-text-description">{{ item.description }}</p>
                         <span class="article-text-author">{{ item.author }}</span>
                         <span class="article-text-date">{{ item.publishedAt }}</span>
                     </div>
-                    
                 </a>
             </div>
         </div>
@@ -30,13 +31,12 @@ export default {
     },
     data () {
         return {
-            news: []
+            news: [],
+            loading: true
         }
     },
     mounted() {
-        // this.reduceCategories()
         this.fetchData()
-                    console.log('this.news', this.news)
     },
     methods: {
         fetchData() {
@@ -53,10 +53,12 @@ export default {
                     news.map((article) => {
                         this.news.push(article)
                     })
+                    this.loading = false
                 } catch (error) {
                     console.error(error)
                 }
             }
+            this.loading = true
             getData()
         },
     }
