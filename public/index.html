@@ -15,13 +15,11 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
     <script>
-    export default {
       (function() {
         if('serviceWorker' in navigator) {
-          navigator.serviceWorker.register('/service-worker.js');
+          navigator.serviceWorker.register('service-worker.js');
         }
       })();
-    }
     </script> 
   </body>
 </html>

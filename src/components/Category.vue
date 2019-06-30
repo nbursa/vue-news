@@ -20,6 +20,7 @@
                 </div>
             </div>
         </div>
+        <div class="scroll" @click="scrollToTop" v-if="position > 550"><i></i></div>
         <footer v-if="!loading">Data collected from <a href="https://newsapi.org">NewsAPI.org</a></footer>
     </div>
 </template>
@@ -36,7 +37,8 @@ export default {
         return {
             news: [],
             loading: true,
-            gutter: 0
+            gutter: 0,
+            position: 0
         }
     },
     created () {
@@ -50,8 +52,23 @@ export default {
     mounted () {
         this.fetchData()
         this.gutterCalc()
+        let app = document.documentElement.querySelector('#app')
+        app.addEventListener('scroll', this.scrollPosition)
+    },
+    beforeDestroy () {
+        let app = document.documentElement.querySelector('#app')
+        app.removeEventListener('scroll', this.scrollPosition)
     },
     methods: {
+        scrollToTop () {
+            let app = document.documentElement.querySelector('#app')
+            app.scrollTop = 0
+        },
+        scrollPosition () {
+            let category = document.documentElement.querySelector('.category')
+            let currentScrollPos = Math.abs(category.getBoundingClientRect().top - 30)
+            this.position = currentScrollPos
+        },
         fetchData () {
             let news = []
             let variable = 'category=' + `${this.$route.query.category}`+ '&pageSize=100&country=us&'
