@@ -5,8 +5,6 @@
 </template>
 
 <script>
-/* eslint-disable */
-import HomePage from './components/HomePage'
 
 const axios = require('axios')
 
@@ -46,9 +44,6 @@ export default {
         }
         getData()
         },
-    },
-    components: {
-        HomePage
     }
 }
 </script>

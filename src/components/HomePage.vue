@@ -14,7 +14,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 const axios = require('axios')
 
 export default {
