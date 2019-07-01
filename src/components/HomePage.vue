@@ -14,8 +14,6 @@
 </template>
 
 <script>
-const axios = require('axios')
-
 export default {
     name: 'HomePage',
     props: {
@@ -38,13 +36,14 @@ export default {
 
             let getData = async () => {
                 try {
-                    let response = await axios.get(call);
+                    let response = await this.$axios.get(call);
                     let headlines = response.data.articles
                     headlines.forEach((article) => {
                         if (article.title)
                             this.headlines.push(article.title)
                     })
                 } catch (error) {
+                    // eslint-disable-next-line
                     console.error(error)
                 }
             }

@@ -2,6 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
 import {VueMasonryPlugin} from 'vue-masonry'
+import axios from 'axios'
+
+Vue.prototype.$axios = axios
 
 Vue.use(VueRouter)
 Vue.use(VueMasonryPlugin)

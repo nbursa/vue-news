@@ -5,9 +5,6 @@
 </template>
 
 <script>
-
-const axios = require('axios')
-
 export default {
     name: 'app',
     data () {
@@ -27,7 +24,7 @@ export default {
 
         let getData = async () => {
             try {
-            let response = await axios.get(call);
+            let response = await this.$axios.get(call);
             let news = response.data.sources
             news.map(item => {
                 this.categories.push(item)
@@ -39,6 +36,7 @@ export default {
             filteredCategories = [...new Set(filteredCategories)]
             this.categories = filteredCategories
             } catch (error) {
+                // eslint-disable-next-line
                 console.error(error)
             }
         }
