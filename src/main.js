@@ -16,7 +16,7 @@ import Category from './components/Category'
 import './registerServiceWorker'
 
 const router = new VueRouter({
-    mode: 'history',
+    mode: 'hash',
     base: __dirname,
     routes: [
         { path: '/', component: HomePage, props: true },
