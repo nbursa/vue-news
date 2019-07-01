@@ -8,7 +8,7 @@
         </div>
         <div v-masonry column-width=".news" :gutter="gutter" transition-duration="0.3s" item-selector=".news" v-if="!loading" class="news-container">
             <div class="news" v-for="(item, i) in news[0]" :key="i" v-masonry-tile>
-                <div class="article" v-if="item.description">
+                <div class="article">
                     <a class="article-link" :href="item.url" target="_blank">
                         <img class="article-image" src="../assets/background-3046137_640.jpg" :data-src="item.urlToImage" :alt="item.title">
                         <div class=article-text>
