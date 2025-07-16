@@ -11,9 +11,9 @@
         "axios": "^0.30.0",
         "core-js": "^2.6.5",
         "register-service-worker": "^1.6.2",
-        "vue": "^2.6.10",
+        "vue": "^3.5.17",
         "vue-axios": "^2.1.4",
-        "vue-masonry": "^0.11.7",
+        "vue-masonry": "^0.16.0",
         "vue-router": "^3.0.6",
         "webpack": "^4.35.2"
     },
